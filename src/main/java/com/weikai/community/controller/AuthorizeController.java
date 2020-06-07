@@ -9,6 +9,9 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.servlet.http.HttpServletRequest;
+
 /*
  * 2020年6月5日17:17:11
  * weikai
@@ -30,18 +33,25 @@ public class AuthorizeController {
 
     @RequestMapping("/callback")
     public String callback(@RequestParam(name="code")String code,
-                           @RequestParam(name="state")String state) throws Exception{
+                           @RequestParam(name="state")String state,
+                           HttpServletRequest request) throws Exception{
         AccessTokenDTO accessTokenDTO = new AccessTokenDTO();
         accessTokenDTO.setClient_id(cilenId);
         accessTokenDTO.setClient_secret(cilenSecret);
         accessTokenDTO.setCode(code);
-        System.out.println(code);
         accessTokenDTO.setRedirect_uri(redirectUrl);
         accessTokenDTO.setState(state);
-        System.out.println(state);
+        //调用getAccessToken接口 获取Github返回token
         String accessToken = githubProvider.getAccessToken(accessTokenDTO);
+        //调用githubUserDto接口 获取用户信息
         GithubUserDto user = githubProvider.githubUserDto(accessToken);
-        System.out.println(user.getName());
-        return "index";
+        if(user != null){
+            //登陆成功 写cookie和session
+            request.getSession().setAttribute("user",user);
+            return  "redirect:/";
+        }else {
+            //登陆失败  请重新登陆
+            return  "redirect:/";
+        }
     }
 }
