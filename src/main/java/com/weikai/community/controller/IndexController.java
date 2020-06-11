@@ -16,9 +16,10 @@ public class IndexController {
     @Autowired
     private UserMapper userMapper;
 
-    @RequestMapping("/greeting")
+    @RequestMapping("/")
     public String greeting(HttpServletRequest request){
         Cookie[] cookies = request.getCookies();
+        if(cookies != null){
         for (Cookie cookie : cookies) {
             if(cookie.getName().equals("token")){
                 String token = cookie.getValue();
@@ -29,8 +30,7 @@ public class IndexController {
                 break;
             }
         }
-
-
+        }
         return "index";
     }
 }
