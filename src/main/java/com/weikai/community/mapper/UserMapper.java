@@ -1,6 +1,6 @@
 package com.weikai.community.mapper;
 
-import com.weikai.community.model.User;
+import com.weikai.community.dto.User;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

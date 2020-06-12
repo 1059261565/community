@@ -3,7 +3,7 @@ package com.weikai.community.controller;
 import com.weikai.community.dto.AccessTokenDTO;
 import com.weikai.community.dto.GithubUserDto;
 import com.weikai.community.mapper.UserMapper;
-import com.weikai.community.model.User;
+import com.weikai.community.dto.User;
 import com.weikai.community.provider.GithubProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

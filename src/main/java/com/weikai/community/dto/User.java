@@ -1,4 +1,4 @@
-package com.weikai.community.model;
+package com.weikai.community.dto;
 
 import lombok.Data;
 
